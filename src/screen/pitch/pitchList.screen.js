@@ -1,59 +1,114 @@
 import React, {Component} from 'react'
-import {Image, Text, View} from "react-native";
+import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {Body, Button, Card, CardItem, Container, Content, getTheme, Header, Icon, Right} from "native-base";
 import {pitch} from "../../theme/pitch.style";
+import FilterComponent from "../../component/filter";
+
+const PitchLists = [
+    {
+        id: 1,
+        teamName: 'Sân bóng Nhà Máy Đường',
+        price1: '300.000',
+        price2: '150.000',
+        status: 'available'
+    },
+    {
+        id: 2,
+        teamName: 'Sân bóng Nhà Máy Đường',
+        price1: '300.000',
+        price2: '150.000',
+        status: 'unavailable'
+    },
+    {
+        id: 3,
+        teamName: 'Sân bóng Nhà Máy Đường',
+        price1: '300.000',
+        price2: '150.000',
+        status: 'available'
+    },
+    {
+        id: 4,
+        teamName: 'Sân bóng Nhà Máy Đường',
+        price1: '300.000',
+        price2: '150.000',
+        status: 'available'
+    },
+    {
+        id: 5,
+        teamName: 'Sân bóng Nhà Máy Đường',
+        price1: '300.000',
+        price2: '150.000',
+        status: 'available'
+    }
+];
 
 export default class PitchList extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            toggle: false
-        }
-    }
-
-    toggle = (e) => {
-        this.setState({
-            toggle: !this.state.toggle
-        })
-    }
-
     render() {
         return (
-            <View style={pitch.container}>
-                <View style={pitch.filter}>
-                    <Text style={pitch.filterTitle}>Bộ lọc</Text>
-                    <Button onPress={(e) => this.toggle(e)} style={pitch.buttonFilter}>
-                        <Icon style={pitch.buttonIconFilter} name={this.state.toggle ? 'arrow-up' : 'arrow-down'}/>
-                    </Button>
-                </View>
-                <View style={{
-                    height: this.state.toggle ? 400 : 0,
-                    backgroundColor: '#3A5765'
-                }}>
-                </View>
-                <View style={pitch.pitchItemContainer}>
-                    <Card style={pitch.pitchItem}>
-                        <CardItem style={pitch.pitchCard}>
-                            <Body>
-                                <View style={pitch.informationContainer}>
-                                    <View style={pitch.imageContainer}>
-                                        <Image source={require("../../../assets/buger.png")}/>
 
-                                    </View>
-                                    <Text style={pitch.teamName}>Sân bóng nhà máy đường</Text>
-                                </View>
-                            </Body>
-                        </CardItem>
-                        <CardItem style={pitch.pitchCard}>
-                            <Body>
-                            <Text>
-                                //Your text here
-                            </Text>
-                            </Body>
-                        </CardItem>
-                    </Card>
+            <View style={pitch.container}>
+                <FilterComponent/>
+                <View style={pitch.pitchItemContainer}>
+                    <ScrollView>
+                        <Card style={pitch.pitchItem}>
+                            {PitchLists.map(({teamName, price1, price2, id, status}) => {
+                                return (
+                                    <CardItem
+                                        style={status === 'available' ? pitch.pitchCardAvailable : pitch.pitchCardUnavailable}
+                                        key={id}>
+                                        <Body>
+                                        <View style={pitch.informationContainer}>
+                                            <View style={pitch.imageContainer}>
+                                                <Image source={require("../../../assets/buger.png")}/>
+                                            </View>
+                                            <View style={pitch.pitchInformation}>
+                                                <Text
+                                                    style={pitch.teamName}>{teamName ? teamName : 'Team name is missing'}</Text>
+                                                <Text style={pitch.pitchPrice}>Sân 7
+                                                    từ: {price1 ? price1 : 'missing price'} đ</Text>
+                                                <Text style={pitch.pitchPrice}>Sân 5
+                                                    từ: {price2 ? price2 : 'missing price'} đ</Text>
+                                            </View>
+
+                                        </View>
+
+                                        <View style={pitch.pitchStatusContainer}>
+                                            <Text
+                                                style={status === 'available' ? pitch.pitchStatusAvailable : pitch.pitchStatusUnavailable}>
+                                                {status === 'available' ? 'Đang có sân' : ' Hết sân'}
+                                            </Text>
+
+                                        </View>
+                                        <View style={pitch.line}/>
+                                        <View style={pitch.contactContainer}>
+                                            <View style={pitch.callNowButtonContainer}>
+                                                <TouchableOpacity>
+                                                    <Text style={pitch.callNowButton}>GỌI NGAY</Text>
+                                                </TouchableOpacity>
+
+                                            </View>
+                                            <View style={pitch.bookNowButtonContainer}>
+                                                <TouchableOpacity disabled={status !== 'available'}>
+                                                    <View>
+                                                        <Text
+                                                            style={status === 'available' ? pitch.bookNowButtonAvailable : pitch.bookNowButtonUnavailable}>ĐẶT
+                                                            SÂN</Text>
+                                                    </View>
+                                                </TouchableOpacity>
+
+                                            </View>
+                                        </View>
+                                        </Body>
+                                    </CardItem>
+                                )
+                            })}
+
+
+                        </Card>
+                    </ScrollView>
                 </View>
             </View>
+
         )
     }
 }

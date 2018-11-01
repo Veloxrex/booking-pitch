@@ -1,5 +1,7 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, View} from "react-native";
 import variables from "./variables";
+import {Body} from "native-base";
+import React from "react";
 
 export const pitch = StyleSheet.create({
     container: {
@@ -33,8 +35,19 @@ export const pitch = StyleSheet.create({
         backgroundColor: 'transparent',
         borderColor: 'transparent'
     },
-    pitchCard: {
+    pitchCardUnavailable: {
         marginTop: 20,
+        borderRightWidth: 10,
+        borderRadius: 10,
+        borderColor: variables.unavailableStatus,
+        backgroundColor: variables.pitchItemColor,
+
+    },
+    pitchCardAvailable: {
+        marginTop: 20,
+        borderRightWidth: 10,
+        borderRadius: 10,
+        borderColor: variables.availableStatus,
         backgroundColor: variables.pitchItemColor,
 
     },
@@ -44,11 +57,64 @@ export const pitch = StyleSheet.create({
         backgroundColor: 'red'
     },
     informationContainer: {
-        flexDirection: 'row',
-        backgroundColor: 'blue'
+        flexDirection: 'row'
+    },
+    pitchInformation: {
+        flexDirection: 'column',
+        paddingHorizontal: 30
     },
     teamName: {
+        color: variables.subTextcolor,
+        fontSize: 20
 
-        color: variables.textColor
-    }
-})
+    },
+    pitchPrice: {
+        color: variables.subTextcolor,
+        paddingVertical: 5
+    },
+    pitchStatusContainer: {
+        alignSelf: 'flex-end'
+    },
+    pitchStatusAvailable: {
+        color: variables.availableStatus
+    },
+    pitchStatusUnavailable: {
+        color: variables.unavailableStatus
+    },
+    line: {
+        width: '100%',
+        borderBottomColor: variables.subTextcolor,
+        borderBottomWidth: 1,
+        paddingTop: 15
+    },
+    contactContainer: {
+        paddingVertical: 10,
+        flexDirection: 'row'
+    },
+    callNowButtonContainer: {
+        width: '50%',
+        alignItems: 'flex-start'
+
+    },
+    callNowButton: {
+        color: variables.subTextcolor,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    bookNowButtonContainer: {
+        width: '50%',
+        alignItems: 'flex-end',
+
+    },
+    bookNowButtonAvailable: {
+        color: variables.subTextcolor,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    bookNowButtonUnavailable: {
+        opacity: 0.5,
+        color: variables.subTextcolor,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});
